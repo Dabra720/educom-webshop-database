@@ -9,7 +9,7 @@ function showLoginContent($data){
 function showLoginForm($data){
   echo '<span class="error">* required fields</span>
 	<form action="index.php" method="POST">
-		E-Mail: <input type="text" name="email" value=""><span class="error">* '. getArrayVar($data['errors'], 'email') .'</span>
+		E-Mail: <input type="text" name="email" value="'. getArrayVar($data['values'], 'email') .'"><span class="error">* '. getArrayVar($data['errors'], 'email') .'</span>
 		<br><br>
 		Wachtwoord: <input type="text" name="password" value=""><span class="error">* '. getArrayVar($data['errors'], 'password') . '</span>
 		<br><br>

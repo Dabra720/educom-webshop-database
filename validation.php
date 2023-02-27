@@ -31,13 +31,18 @@ function validateRegister(){
     // debug_to_console($data['values']);
     var_dump($data['values']);
     if(!empty($data['values']['email'])){
-      if(doesEmailExist($data['values']['email'])){
-        $data['errors']['email'] = "Already exists";
-      } else{
-      if(empty($data['errors'])){
-        $data['validForm'] = true;
-      }
-      }
+      // try{
+        if(doesEmailExist($data['values']['email'])){
+          $data['errors']['email'] = "Already exists";
+        } else{
+          if(empty($data['errors'])){
+            $data['validForm'] = true;
+          }
+        }
+      // } catch($exception){
+
+      // }
+      
     }
     
   }
