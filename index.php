@@ -5,7 +5,6 @@ require 'validation.php';
 require 'user_service.php';
 require 'session_manager.php';
 
-
 $page = getRequestedPage();
 $data = processRequest($page);
 // var_dump($data);
@@ -52,9 +51,26 @@ function processRequest($page){
       }
       break;
     case 'profile':
-      // debug_to_console("SESSION ID: " . $_SESSION['userid']);
-      $data = getUserById($_SESSION['userid']);
-      $page='profile';
+      $data = validateProfile();
+      if($data['validForm']){
+        $page = 'change';
+      }else{
+        if(isUserLoggedIn()){
+          $data = getUserBy('id', $_SESSION['userid']);
+          $page='profile';
+        } else {
+          $data = validateLogin();
+          $page ='login';
+        }
+      }
+      
+      break;
+    case 'change_pass':
+      $data = validateChangePassword();
+      if($data['validForm']){
+        $page = 'profile';
+      } else {$page = 'change';}
+      // debug_to_console("Page: " . $page);
       break;
   }
   $data['page'] = $page;
@@ -107,6 +123,10 @@ function showContent($data){
     case "profile":
       require 'profile.php';
       showProfileContent($data);
+      break;
+    case 'change':
+      require 'profile.php';
+      showChangePasswordForm($data);
       break;
     default:
       pageNotFound();

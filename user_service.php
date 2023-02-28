@@ -4,12 +4,25 @@ require 'file_repository.php';
 function authenticateUser($email, $password){
   $user = findUserByEmail($email);
   if(!empty($user)){
-    if(str_replace(array("\r", "\n"), '', $user['password'])==$password){
+    if($user['password']==$password){
       return $user;
     }
   } else{
     return NULL;
   }
+}
+
+function getUserBy($search, $value){
+  switch($search){
+    case 'email':
+      $user = findUserByEmail($value);
+      return $user;
+    case 'id':
+      $user = findUserById($value);
+      return $user;
+  }
+  return NULL;
+
 }
 
 function doesEmailExist($email){
@@ -20,6 +33,10 @@ function doesEmailExist($email){
 
 function storeUser($email, $name, $password){
   saveUser($email, $name, $password);
+}
+
+function changeUserPassword($old_pass, $new_pass){
+
 }
 
 ?>
