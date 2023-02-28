@@ -30,7 +30,7 @@ function processRequest($page){
     case 'login':
       $data = validateLogin();
       if($data['validForm']){
-        doLoginUser($data['values']['name']);
+        // doLoginUser($data['values']['name']);
         $page = 'home';
       }
       break;
@@ -50,6 +50,11 @@ function processRequest($page){
         storeUser($data['values']['email'], $data['values']['name'], $data['values']['password']);
         $page = 'login';
       }
+      break;
+    case 'profile':
+      // debug_to_console("SESSION ID: " . $_SESSION['userid']);
+      $data = getUserById($_SESSION['userid']);
+      $page='profile';
       break;
   }
   $data['page'] = $page;
@@ -99,6 +104,10 @@ function showContent($data){
       require 'contact.php';
       showContactThanks($data);
       break;
+    case "profile":
+      require 'profile.php';
+      showProfileContent($data);
+      break;
     default:
       pageNotFound();
   }
@@ -128,6 +137,7 @@ function showHeader($data){
     echo '<li><a href="index.php?page=register">REGISTER</a></li>';
     echo '<li><a href="index.php?page=login">LOGIN</a></li>';
   } else {
+    echo '<li><a href="index.php?page=profile">PROFILE</a></li>';
     echo '<li><a href="index.php?page=logout">LOGOUT ' . $_SESSION['username'] . '</a></li>';
   }
   
@@ -173,6 +183,10 @@ function debug_to_console($data) {
       $output = implode(',', $output);
 
   echo "<script>console.log('Debug Objects: " . $output . "');</script>";
+}
+
+function logDebug($msg){
+  debug_to_console($msg);
 }
 
 ?>

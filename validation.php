@@ -31,20 +31,14 @@ function validateRegister(){
     // debug_to_console($data['values']);
     var_dump($data['values']);
     if(!empty($data['values']['email'])){
-      // try{
-        if(doesEmailExist($data['values']['email'])){
-          $data['errors']['email'] = "Already exists";
-        } else{
-          if(empty($data['errors'])){
-            $data['validForm'] = true;
-          }
+      if(doesEmailExist($data['values']['email'])){
+        $data['errors']['email'] = "Already exists";
+      } else{
+        if(empty($data['errors'])){
+          $data['validForm'] = true;
         }
-      // } catch($exception){
-
-      // }
-      
+      }
     }
-    
   }
   return $data;
 }
@@ -54,15 +48,21 @@ function validateLogin(){
   $data = array('validForm'=> false, 'values'=> array(), 'errors'=> array());
   
   if($_SERVER['REQUEST_METHOD']=='POST'){
-    $user = authenticateUser($_POST['email'], $_POST['password']);
-    if(is_null($user)){
-      $data['errors']['email'] = "Email and/or password is wrong";
-      $data['errors']['password'] = "Email and/or password is wrong";
-    } else{
-      $data['validForm'] = true;
-      $data['values']['name'] = $user['name'];
-      doLoginUser($user['name']);
+    try{
+      $user = authenticateUser($_POST['email'], $_POST['password']);
+      if(is_null($user)){
+        $data['errors']['email'] = "Email and/or password is wrong";
+        $data['errors']['password'] = "Email and/or password is wrong";
+      } else{
+        $data['validForm'] = true;
+        $data['values']['name'] = $user['name'];
+        doLoginUser($user);
+      }
+    } catch(Exception $ex){
+      $data['errors']['generic'] = "Er is een technische storing, probeer het later nogmaals.";
+      logDebug("Authentication failed: " . $ex->getMessage());
     }
+    
   }
   return $data;
 }

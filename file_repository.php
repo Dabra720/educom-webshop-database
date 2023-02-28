@@ -35,4 +35,19 @@ function updateUser($email, $name, $password){
 
   mysqli_close();
 }
+
+function getUserById($id){
+  $conn = databaseConnection();
+  $data = array('id'=>'', 'name'=>'', 'email'=>'', 'password'=>'');
+  if(isset($_SESSION['userid'])){
+    $sql = "SELECT * FROM users WHERE id='".$_SESSION['userid']."'";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_assoc($result)){
+      $data = $row;
+    }
+    mysqli_close($conn);
+    
+  }
+  return $data;
+}
 ?>

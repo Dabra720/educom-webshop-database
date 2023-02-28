@@ -1,7 +1,8 @@
 <?php 
 
-function doLoginUser($name){
-  $_SESSION['username'] = $name;
+function doLoginUser($user){
+  $_SESSION['userid'] = $user['id'];
+  $_SESSION['username'] = $user['name'];
 }
 function isUserLoggedIn(){
   if(isset($_SESSION['username'])){
