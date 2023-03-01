@@ -1,4 +1,8 @@
 <?php
+require 'forms.php';
+
+define("SALUTATIONS", array("Dhr"=>"Dhr", "Mvr"=>"Mvr"));
+define("COMM_PREFS", array("email"=>"E-Mail", "phone"=>"Telefoon"));
 
 function showContactContent($data){
 	echo '<h1>Neem contact met ons op</h1>
@@ -14,7 +18,7 @@ function showContactThanks($data){
 	echo "Bericht: " . getArrayVar($data['values'], 'message') . "<br>";
 }
 
-function showContactForm($data){
+function showContactForm2($data){
 	echo '<span class="error">* required fields</span>
 	<form action="index.php" method="POST">
 	<table>
@@ -64,5 +68,16 @@ function showContactForm($data){
 		</tr>
 	</table>
 	</form>';
+}
+
+function showcontactForm($data){
+	showFormStart(true);
+	showFormField('aanhef', 'Aanhef', 'select', $data, true, SALUTATIONS);
+	showFormField('name', 'Naam', 'text', $data);
+	showFormField('email', 'E-Mail', 'email', $data);
+	showFormField('phone', 'Telefoon', 'text', $data);
+	showFormField('voorkeur', 'Communicatievoorkeur', 'radio', $data, true, COMM_PREFS);
+	showFormField('message', 'Bericht', 'textarea', $data);
+	showFormEnd('contact');
 }
 ?>

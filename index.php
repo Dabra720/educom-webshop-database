@@ -10,6 +10,8 @@ $data = processRequest($page);
 // var_dump($data);
 showResponsePage($data);
 
+
+
 function getRequestedPage() 
 {     
    $requested_type = $_SERVER['REQUEST_METHOD']; 
@@ -76,7 +78,7 @@ function processRequest($page){
   $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT');
   if(isUserLoggedIn()){
     $data['menu']['profile'] = "PROFILE";
-    $data['menu']['logout'] = "LOGOUT" . getCurrentUser('name');
+    $data['menu']['logout'] = "LOGOUT " . getCurrentUser('name');
   } else{
     $data['menu']['register'] = "REGISTER";
     $data['menu']['login'] = "LOGIN";

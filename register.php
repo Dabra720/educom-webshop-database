@@ -1,11 +1,12 @@
 <?php 
+require 'forms.php';
 function showRegisterContent($data){
   echo '<h1>Registreer nu je account</h1>
   <h2>Voer je gegevens in:</h2>';
   showRegisterForm($data);
 }
 
-function showRegisterForm($data){
+function showRegisterForm2($data){
   echo '<span class="error">* required fields</span>
 	<form action="index.php" method="POST">
 	<table>
@@ -18,19 +19,19 @@ function showRegisterForm($data){
 		<tr>
 			<td><label for="email">E-Mail: </label></td>
 			<td>
-				<input type="text" name="email" id="email" value="'.getArrayVar($data['values'], 'email').'"><span class="error">* '.getArrayVar($data['errors'], 'email').'</span>
+				<input type="email" name="email" id="email" value="'.getArrayVar($data['values'], 'email').'"><span class="error">* '.getArrayVar($data['errors'], 'email').'</span>
 			</td>
 		</tr>
 		<tr>
 			<td><label for="password">Wachtwoord: </label></td>
 			<td>
-				<input type="text" name="password" id="password" value="'. getArrayVar($data['values'], 'password') . '"><span class="error">* '. getArrayVar($data['errors'], 'password') . '</span>
+				<input type="password" name="password" id="password" value="'. getArrayVar($data['values'], 'password') . '"><span class="error">* '. getArrayVar($data['errors'], 'password') . '</span>
 			</td>
 		</tr>
 		<tr>
 			<td><label for="pass_rep">Herhaal wachtwoord: </label></td>
 			<td>
-				<input type="text" name="pass_rep" id="pass_rep" value="'. getArrayVar($data['values'], 'pass_rep') . '"><span class="error">* '. getArrayVar($data['errors'], 'pass_rep') . '</span>
+				<input type="password" name="pass_rep" id="pass_rep" value="'. getArrayVar($data['values'], 'pass_rep') . '"><span class="error">* '. getArrayVar($data['errors'], 'pass_rep') . '</span>
 			</td>
 		</tr>
 		<tr>
@@ -42,6 +43,16 @@ function showRegisterForm($data){
 		</tr>
 	</table>
 	</form>';
+}
+
+function showRegisterForm($data){
+	showFormStart(TRUE);
+	showFormField('name', 'Naam', 'text', $data);
+	showFormField('email', 'E-Mail', 'email', $data);
+	showFormField('password', 'Wachtwoord', 'password', $data);
+	showFormField('pass_rep', 'Herhaal wachtwoord', 'password', $data);
+	showFormEnd('register');
+	
 }
 
 

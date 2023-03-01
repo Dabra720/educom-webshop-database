@@ -1,4 +1,5 @@
 <?php
+require 'forms.php';
 // var_dump($data);
 function showProfileContentTwo($data){
   echo '
@@ -60,7 +61,7 @@ function showProfileContent($data){
   ';
 }
 
-function showChangePasswordForm($data){
+function showChangePasswordForm2($data){
 	echo '
   <h1>Wachtwoord wijzigen</h1>
   <span class="error">* required fields</span>
@@ -90,6 +91,15 @@ function showChangePasswordForm($data){
     </tr>
 		</table>
 		</form>';
+}
+
+function showChangePasswordForm($data){
+  echo '<h1>Wachtwoord wijzigen</h1>';
+  showFormStart(true);
+  showFormField('old_pass', 'Huidige wachtwoord', 'password', $data);
+  showFormField('new_pass', 'Nieuwe wachtwoord', 'password', $data);
+  showFormField('new_pass_rep', 'Herhaal wachtwoord', 'password', $data);
+  showFormEnd('change');
 }
 
 ?>
