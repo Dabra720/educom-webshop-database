@@ -29,7 +29,7 @@ function processRequest($page){
     case 'login':
       $data = validateLogin();
       if($data['validForm']){
-        // doLoginUser($data['values']['name']);
+        doLoginUser($data);
         $page = 'home';
       }
       break;
@@ -51,23 +51,22 @@ function processRequest($page){
       }
       break;
     case 'profile':
-      $data = validateProfile();
-      if($data['validForm']){
-        $page = 'change';
-      }else{
         if(isUserLoggedIn()){
-          $data = getUserBy('id', $_SESSION['userid']);
+          $data = validateChangePassword();
           $page='profile';
         } else {
           $data = validateLogin();
           $page ='login';
         }
-      }
-      
       break;
-    case 'change_pass':
+    case 'change':
+      // debug_to_console("Page: " . $page);
       $data = validateChangePassword();
       if($data['validForm']){
+        // debug_to_console("Updating Old password: " . $data['values']['old_pass']);
+        // debug_to_console("To new password: " . $data['values']['new_pass']);
+        updateUser('password', $data['values']['new_pass']);
+        $data = validateChangePassword();
         $page = 'profile';
       } else {$page = 'change';}
       // debug_to_console("Page: " . $page);
@@ -158,7 +157,7 @@ function showHeader($data){
     echo '<li><a href="index.php?page=login">LOGIN</a></li>';
   } else {
     echo '<li><a href="index.php?page=profile">PROFILE</a></li>';
-    echo '<li><a href="index.php?page=logout">LOGOUT ' . $_SESSION['username'] . '</a></li>';
+    echo '<li><a href="index.php?page=logout">LOGOUT ' . getCurrentUser('name') . '</a></li>';
   }
   
 	echo '</ul>

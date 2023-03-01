@@ -35,8 +35,4 @@ function storeUser($email, $name, $password){
   saveUser($email, $name, $password);
 }
 
-function changeUserPassword($old_pass, $new_pass){
-
-}
-
 ?>

@@ -38,14 +38,22 @@ function saveUser($email, $name, $password){
 
 }
 
-function updateUser($email, $name, $password){
+function updateUser($key, $value){
   $conn = databaseConnection();
 
-  $sql = "";
+  switch($key){
+    case 'password':
+      $sql = "UPDATE users SET password='$value' WHERE id='".getCurrentUser('id'). "'";
+      break;
+    default:
+
+      break;
+  }
+  
 
   mysqli_query($conn, $sql);
 
-  mysqli_close();
+  mysqli_close($conn);
 }
 
 function findUserById($id){
@@ -70,18 +78,6 @@ function findUserById($id){
   } finally {
     mysqli_close($conn);
   }
-  // $conn = databaseConnection();
-  // $data = array('id'=>'', 'name'=>'', 'email'=>'', 'password'=>'');
-  // if(isset($_SESSION['userid'])){
-  //   $sql = "SELECT * FROM users WHERE id='".$_SESSION['userid']."'";
-  //   $result = mysqli_query($conn, $sql);
-  //   while($row = mysqli_fetch_assoc($result)){
-  //     $data = $row;
-  //   }
-  //   mysqli_close($conn);
-    
-  // }
-  // return $data;
 }
 
 

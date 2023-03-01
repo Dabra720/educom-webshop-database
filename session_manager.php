@@ -1,20 +1,24 @@
 <?php 
 
-function doLoginUser($user){
-  $_SESSION['userid'] = $user['id'];
-  $_SESSION['username'] = $user['name'];
+function doLoginUser($data){
+  $_SESSION['id'] = $data['values']['id'];
+  $_SESSION['name'] = $data['values']['name'];
 }
 function isUserLoggedIn(){
-  if(isset($_SESSION['username'])){
+  if(isset($_SESSION['name'])){
     return TRUE;
   } else { return FALSE; }
 }
-function getLoggedInUserName(){
-  return $_SESSION['username'];
+function getCurrentUser($value){
+  switch($value){
+    case 'name':
+      return $_SESSION['name'];
+    case 'id':
+      return $_SESSION['id'];
+  }
 }
 function doLogoutUser(){
   session_unset();
 }
-
 
 ?>

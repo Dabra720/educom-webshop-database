@@ -61,8 +61,10 @@ function validateLogin(){
         $data['errors']['password'] = "Email and/or password is wrong";
       } else{
         $data['validForm'] = true;
+        $data['values']['id'] = $user['id'];
         $data['values']['name'] = $user['name'];
-        doLoginUser($user); // Deze moet in de index.php gebeuren.
+
+        // doLoginUser($user); // Deze moet in de index.php gebeuren.
       }
     } catch(Exception $ex){
       $data['errors']['generic'] = "Er is een technische storing, probeer het later nogmaals.";
@@ -73,23 +75,6 @@ function validateLogin(){
   return $data;
 }
 
-function validateProfile(){
-  $data = array('validForm'=> false, 'values'=> array(), 'errors'=> array());
-  $user = getUserBy('id', $_SESSION['userid']);
-  if($user){
-    // debug_to_console("ValidateProfile: " . $user['name']);
-    $data['values']['id'] = $user['id'];
-    $data['values']['name'] = $user['name'];
-    $data['values']['email'] = $user['email'];
-    $data['values']['password'] = $user['password'];
-  }
-
-  if($_SERVER['REQUEST_METHOD']=='POST'){
-    $data['validForm'] = true;
-  }
-  
-  return $data;
-}
 // Valideer het oude wachtwoord en of er 2x het nieuwe wachtwoord is ingevuld.
 function validateChangePassword(){
   $data = array('validForm'=> false, 'values'=> array(), 'errors'=> array());
@@ -98,9 +83,12 @@ function validateChangePassword(){
   $new_pass = getPostVar('new_pass');
   $pass_rep = getPostVar('new_pass_rep');
 
-  $user = getUserBy('id', $_SESSION['userid']);
+  $user = getUserBy('id', getCurrentUser('id'));
   if($user){
     debug_to_console("ValidateProfile: " . $user['name']);
+    $data['values']['old_pass'] = $old_pass;
+    $data['values']['new_pass'] = $new_pass;
+    $data['values']['new_pass_rep'] = $pass_rep;
     $data['values']['id'] = $user['id'];
     $data['values']['name'] = $user['name'];
     $data['values']['email'] = $user['email'];
@@ -110,14 +98,14 @@ function validateChangePassword(){
   if($_SERVER['REQUEST_METHOD']=="POST"){
     $data = validateField($data, 'old_pass', 'isEmpty');
     if($old_pass == $user['password']){
-      $data = validateField($data, 'new_pass', 'pass_rep:new_pass_rep');
+      $data = validateField($data, 'new_pass_rep', 'pass_rep:new_pass');
     } else {
       $data['errors']['old_pass'] = "Password is incorrect";
     }
-    
-    
+    if(empty($data['errors'])){
+      $data['validForm'] = true;
+    }
   }
-
   return $data;
 }
 

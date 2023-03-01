@@ -1,33 +1,62 @@
 <?php
-var_dump($data);
-function showProfileContent($data){
+// var_dump($data);
+function showProfileContentTwo($data){
   echo '
-  <h1>Profiel '. $data['name'] .'</h1>
+  <h1>Profiel '. $data['values']['name'] .'</h1>
   <form action="index.php" method="POST">
   <table>
     <tr>
       <td>Userid: </td>
-      <td>'. $data['id'] .'</td>
+      <td>'. $data['values']['id'] .'</td>
     </tr>
     <tr>
       <td>Naam: </td>
-      <td>'. $data['name'] .'</td>
+      <td>'. $data['values']['name'] .'</td>
     </tr>
     <tr>
       <td>Email: </td>
-      <td>'. $data['email'] .'</td>
+      <td>'. $data['values']['email'] .'</td>
     </tr>
     <tr>
       <td>Password: </td>
-      <td>'. $data['password'] .'</td>
+      <td>'. $data['values']['password'] .'</td>
       
     </tr>
     <tr>
       <td><input type="submit" value="Wijzig wachtwoord"></td>
-      <td><input type="hidden" name="page" value="profile"></td>
+      <td><input type="hidden" name="page" value="change"></td>
     </tr>
   </table>
   </form>
+  ';
+}
+
+function showProfileContent($data){
+  echo '
+  <h1>Profiel '. $data['values']['name'] .'</h1>
+  <table>
+    <tr>
+      <td>Userid: </td>
+      <td>'. $data['values']['id'] .'</td>
+    </tr>
+    <tr>
+      <td>Naam: </td>
+      <td>'. $data['values']['name'] .'</td>
+    </tr>
+    <tr>
+      <td>Email: </td>
+      <td>'. $data['values']['email'] .'</td>
+    </tr>
+    <tr>
+      <td>Password: </td>
+      <td>'. $data['values']['password'] .'</td>
+      
+    </tr>
+    <tr>
+      <td><a href="index.php?page=change" class="submit"><button>Wijzig wachtwoord</button></a></td>
+      <td><input type="hidden" name="page" value="change"></td>
+    </tr>
+  </table>
   ';
 }
 
@@ -57,7 +86,7 @@ function showChangePasswordForm($data){
 		</tr>
     <tr>
     <td><input type="submit" value="Opslaan"></td>
-    <td><input type="hidden" name="page" value="change_pass"></td>
+    <td><input type="hidden" name="page" value="change"></td>
     </tr>
 		</table>
 		</form>';
