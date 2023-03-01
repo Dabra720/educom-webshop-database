@@ -73,6 +73,14 @@ function processRequest($page){
       break;
   }
   $data['page'] = $page;
+  $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT');
+  if(isUserLoggedIn()){
+    $data['menu']['profile'] = "PROFILE";
+    $data['menu']['logout'] = "LOGOUT" . getCurrentUser('name');
+  } else{
+    $data['menu']['register'] = "REGISTER";
+    $data['menu']['login'] = "LOGIN";
+  }
   return $data;
 }
 
@@ -148,20 +156,16 @@ function showHeadSection($data){
 function showHeader($data){
   echo '
   <header>
-		<ul class="navbar">
-			<li><a href="index.php?page=home">HOME</a></li>
-			<li><a href="index.php?page=about">ABOUT</a></li>
-			<li><a href="index.php?page=contact">CONTACT</a></li>';
-  if(!isUserLoggedIn()){
-    echo '<li><a href="index.php?page=register">REGISTER</a></li>';
-    echo '<li><a href="index.php?page=login">LOGIN</a></li>';
-  } else {
-    echo '<li><a href="index.php?page=profile">PROFILE</a></li>';
-    echo '<li><a href="index.php?page=logout">LOGOUT ' . getCurrentUser('name') . '</a></li>';
+		<ul class="navbar">';
+  foreach($data['menu'] as $link => $label){
+    showMenuItem($link, $label);
   }
-  
 	echo '</ul>
 	</header>';
+}
+
+function showMenuItem($link, $label){
+  echo "<li><a href='index.php?page=$link'>$label</a></li>";
 }
 
 function showFooter(){

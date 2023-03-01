@@ -55,7 +55,6 @@ function validateLogin(){
   if($_SERVER['REQUEST_METHOD']=='POST'){
     try{
       $user = authenticateUser(getPostVar('email'), getPostVar('password'));
-      // $user = authenticateUser($_POST['email'], $_POST['password']);
       if(is_null($user)){
         $data['errors']['email'] = "Email and/or password is wrong";
         $data['errors']['password'] = "Email and/or password is wrong";
