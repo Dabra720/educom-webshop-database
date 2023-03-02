@@ -23,7 +23,7 @@ function showProduct($key, $value){
               <h3>&#8364; '.$value['price'].'</h3>
             </div>
             <div class="shop_addcart">
-              <a href="#" style="float:right;"><button>Add to Cart</button></a>
+              <!--<a href="#" ><button>Add to Cart</button></a>-->
             </div>
           </div>
           

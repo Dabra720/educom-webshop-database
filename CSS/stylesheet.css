@@ -3,11 +3,16 @@ body {
 	margin: 50px 0px 0px 0px;
 	background-color: lightblue;
 }
-
+a{
+	text-decoration: none;
+}
 h1 {
 	color: navy;
 	font-size: 48px;
 	text-align: center;
+}
+h3{
+	margin: 0px;
 }
 p{
 	font-size: 12px;
@@ -34,7 +39,7 @@ ul.navbar li > a{
 	color: white;
 	text-align: center;
 	padding: 14px 16px;
-	text-decoration: none;
+	/* text-decoration: none; */
 }
 ul.navbar li > a:hover{
 	background-color: blue;
@@ -60,9 +65,10 @@ input[type=text], select, [type=email], [type=password], textarea{
 .shop_title{
 	height: 10%;
 	text-align: center;
+	padding-top: 10px;
 }
 .shop_image{
-	height: 70%;
+	height: 80%;
 	text-align: center;
 }
 .shop_bottom{
@@ -70,14 +76,20 @@ input[type=text], select, [type=email], [type=password], textarea{
 	text-align: center;
 }
 .shop_price{
-	display: inline-block;
+	float: left;
+	display: block;
+	width: 50%;
+	height: 100%;
 }
 .shop_addcart{
-	display: inline-block;
+	float:right;
+	display: block;
+	width: 50%;
+	height: 100%;
 }
-.product_link{
+/* .product_link{
 	text-decoration: none;
-}
+} */
 .shop_product:hover{
 	background-color: blue;
 }
