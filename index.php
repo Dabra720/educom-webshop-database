@@ -1,16 +1,15 @@
 <?php 
 session_start();
-
+require 'file_repository.php';
 require 'validation.php';
 require 'user_service.php';
+require 'product_service.php';
 require 'session_manager.php';
 
 $page = getRequestedPage();
 $data = processRequest($page);
 // var_dump($data);
 showResponsePage($data);
-
-
 
 function getRequestedPage() 
 {     
@@ -62,20 +61,23 @@ function processRequest($page){
         }
       break;
     case 'change':
-      // debug_to_console("Page: " . $page);
       $data = validateChangePassword();
       if($data['validForm']){
-        // debug_to_console("Updating Old password: " . $data['values']['old_pass']);
-        // debug_to_console("To new password: " . $data['values']['new_pass']);
         updateUser('password', $data['values']['new_pass']);
         $data = validateChangePassword();
         $page = 'profile';
       } else {$page = 'change';}
       // debug_to_console("Page: " . $page);
       break;
+    case 'webshop':
+      $data = getProducts();
+      break;
+    case 'product':
+      $product = getProductBy('id', getUrlVar('id'));
+      $data['product'] = $product;
   }
   $data['page'] = $page;
-  $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT');
+  $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT', 'webshop'=>'WEBSHOP');
   if(isUserLoggedIn()){
     $data['menu']['profile'] = "PROFILE";
     $data['menu']['logout'] = "LOGOUT " . getCurrentUser('name');
@@ -137,6 +139,14 @@ function showContent($data){
       require 'profile.php';
       showChangePasswordForm($data);
       break;
+    case 'webshop':
+      require 'webshop.php';
+      showWebshopContent($data);
+      break;
+    case 'product':
+      require 'product.php';
+      showProductContent($data);
+      break;
     default:
       pageNotFound();
   }
@@ -167,7 +177,7 @@ function showHeader($data){
 }
 
 function showMenuItem($link, $label){
-  echo "<li><a href='index.php?page=$link'>$label</a></li>";
+  echo "<li class=''><a href='index.php?page=$link'>$label</a></li>";
 }
 
 function showFooter(){
@@ -181,9 +191,7 @@ function showDocumentEnd(){
 }
 
 function pageNotFound(){
-  echo '<div class="content">
-  <h1>PAGE NOT FOUND 404</h1>
-  </div>';
+  echo '<h1>PAGE NOT FOUND 404</h1>';
 }
 
 function getArrayVar($array, $key, $default='') 

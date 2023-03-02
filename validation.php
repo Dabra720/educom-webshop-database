@@ -28,8 +28,6 @@ function validateRegister(){
     $data = validateField($data, 'password', 'isEmpty');
     $data = validateField($data, 'pass_rep', 'pass_rep:password');
 
-    // debug_to_console($data['values']);
-    // var_dump($data['values']);
     try{
       if(!empty($data['values']['email'])){
         if(doesEmailExist($data['values']['email'])){
@@ -62,8 +60,6 @@ function validateLogin(){
         $data['validForm'] = true;
         $data['values']['id'] = $user['id'];
         $data['values']['name'] = $user['name'];
-
-        // doLoginUser($user); // Deze moet in de index.php gebeuren.
       }
     } catch(Exception $ex){
       $data['errors']['generic'] = "Er is een technische storing, probeer het later nogmaals.";

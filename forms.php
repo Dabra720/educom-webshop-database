@@ -23,10 +23,9 @@ function showFormField($field, $label, $type, $data, $required=true, $options=NU
     case 'radio':
       showRowStart($field, $label);
       foreach(COMM_PREFS as $key=>$value){
-        echo '<input type="'.$type.'" id="'.$key.'" '; if (getArrayVar($data['values'], $field)==$label) echo "checked"; echo ' value="'.$key.'"><label for="'.$key.'">'.$value.'</label>';
+        echo '<input type="'.$type.'" name="'.$field.'" id="'.$key.'" '; if (getArrayVar($data['values'], $field)==$key) echo "checked"; echo ' value="'.$key.'"><label for="'.$key.'">'.$value.'</label>';
       }
-      // echo '<input type="radio" name="voorkeur" '; if (getArrayVar($data['values'], 'voorkeur')=="Email") echo "checked"; echo ' value="Email">Email 
-			// 	<input type="radio" name="voorkeur" '; if (getArrayVar($data['values'], 'voorkeur')=="Telefoon") echo "checked"; echo ' value="Telefoon">Telefoon <span class="error">* '.getArrayVar($data['errors'], 'voorkeur').'</span>';
+      echo '<span class="error">* '.getArrayVar($data['errors'], $field).'</span>';
       showRowEnd();
       break;
     case 'textarea':

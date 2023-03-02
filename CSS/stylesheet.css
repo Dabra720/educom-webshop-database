@@ -48,6 +48,33 @@ ul.navbar li > a:hover{
 input[type=text], select, [type=email], [type=password], textarea{
 	width: 400px;
 }
+.shop_product{
+	display: inline-block;
+	background-color: navy;
+	color: white;
+	border: solid;
+	width: 350px;
+	height: 400px;
+	margin-bottom: 10px;
+}
+.shop_title{
+	height: 10%;
+	text-align: center;
+}
+.shop_image{
+	height: 70%;
+	text-align: center;
+}
+.shop_price{
+	height: 10%;
+	text-align: center;
+}
+.product_link{
+	text-decoration: none;
+}
+.product:hover{
+	background-color: blue;
+}
 footer{
 	background-color: black;
 	color: white;
