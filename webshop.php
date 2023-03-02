@@ -18,9 +18,15 @@ function showProduct($key, $value){
           <div class="shop_image">
             <img src="Images/'.$value['filename'].'" alt="'.$value['name'].'" style="width:80%;height:100%">
           </div>
-          <div class="shop_price">
-            <h3>&#8364; '.$value['price'].'</h3>
+          <div class="shop_bottom">
+            <div class="shop_price">
+              <h3>&#8364; '.$value['price'].'</h3>
+            </div>
+            <div class="shop_addcart">
+              <a href="#" style="float:right;"><button>Add to Cart</button></a>
+            </div>
           </div>
+          
         </div>
         </a>
         ';

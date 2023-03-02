@@ -79,6 +79,7 @@ function processRequest($page){
   $data['page'] = $page;
   $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT', 'webshop'=>'WEBSHOP');
   if(isUserLoggedIn()){
+    $data['menu']['cart'] = "CART";
     $data['menu']['profile'] = "PROFILE";
     $data['menu']['logout'] = "LOGOUT " . getCurrentUser('name');
   } else{

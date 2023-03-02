@@ -65,14 +65,20 @@ input[type=text], select, [type=email], [type=password], textarea{
 	height: 70%;
 	text-align: center;
 }
-.shop_price{
+.shop_bottom{
 	height: 10%;
 	text-align: center;
+}
+.shop_price{
+	display: inline-block;
+}
+.shop_addcart{
+	display: inline-block;
 }
 .product_link{
 	text-decoration: none;
 }
-.product:hover{
+.shop_product:hover{
 	background-color: blue;
 }
 footer{
