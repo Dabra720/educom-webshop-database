@@ -1,5 +1,6 @@
 <?php 
 
+//=================== USER ========================
 function doLoginUser($data){
   $_SESSION['id'] = $data['values']['id'];
   $_SESSION['name'] = $data['values']['name'];
@@ -21,4 +22,14 @@ function doLogoutUser(){
   session_unset();
 }
 
+//=================== PRODUCT ========================
+function storeInCart($productid, $amount){
+  $cart = array();
+
+  $_SESSION['cart'] = $cart;
+}
+
+function getCartContent(){
+  return $_SESSION['cart'];
+}
 ?>

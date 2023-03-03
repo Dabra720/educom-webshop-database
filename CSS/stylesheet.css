@@ -87,9 +87,10 @@ input[type=text], select, [type=email], [type=password], textarea{
 	width: 50%;
 	height: 100%;
 }
-/* .product_link{
+.product_link{
 	text-decoration: none;
-} */
+	color: white;
+}
 .shop_product:hover{
 	background-color: blue;
 }

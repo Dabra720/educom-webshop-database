@@ -1,9 +1,6 @@
 <?php
 require 'forms.php';
 
-define("SALUTATIONS", array("Dhr"=>"Dhr", "Mvr"=>"Mvr"));
-define("COMM_PREFS", array("email"=>"E-Mail", "phone"=>"Telefoon"));
-
 function showContactContent($data){
 	echo '<h1>Neem contact met ons op</h1>
 	<h2>Contactgegevens</h2>';
@@ -11,7 +8,7 @@ function showContactContent($data){
 }
 
 function showContactThanks($data){
-	echo "Beste " . getArrayVar($data['values'], 'aanhef') . " " . getArrayVar($data['values'], 'name') . ", dankjewel voor het posten!" . "<br>";
+	echo "Beste " . SALUTATIONS[getArrayVar($data['values'], 'aanhef', 'Dhr')] . " " . getArrayVar($data['values'], 'name') . ", dankjewel voor het posten!" . "<br>";
 	echo "Emailadres: " . getArrayVar($data['values'], 'email') . "<br>";
 	echo "Telefoonnummer: " . getArrayVar($data['values'], 'phone') . "<br>";
 	echo "Communicatievoorkeur: " . getArrayVar($data['values'], 'voorkeur') . "<br>";
@@ -19,6 +16,7 @@ function showContactThanks($data){
 }
 
 function showcontactForm($data){
+	// debug_to_console('Default array var: ' . SALUTATIONS[getArrayVar($data['values'], 'aanhef')]);  
 	showFormStart(true);
 	showFormField('aanhef', 'Aanhef', 'select', $data, true, SALUTATIONS);
 	showFormField('name', 'Naam', 'text', $data);

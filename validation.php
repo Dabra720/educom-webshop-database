@@ -1,5 +1,9 @@
 <?php
 // Valideer alle gegevens in het Contactform
+
+define("SALUTATIONS", array("Dhr"=>"Dhr", "Mvr"=>"Mvr"));
+define("COMM_PREFS", array("email"=>"E-Mail", "phone"=>"Telefoon"));
+
 function validateContact(){
   $data = array('validForm'=> false, 'values'=> array(), 'errors'=> array());
 
@@ -114,6 +118,7 @@ function validateField($array, $value, $check){
         $array['values'][$value] = test_input(getPostVar($value));
       }
       break;
+    
     case 'nameValid':
       if (empty(getPostVar($value))) {
         $array['errors'][$value] = "Name is required";
