@@ -1,5 +1,5 @@
 <?php
-var_dump($data['products']);
+// var_dump($data['products']);
 function showWebshopContent($data){
   echo '<h1>Producten</h1>';
   foreach($data['products'] as $key => $value){

@@ -3,7 +3,7 @@
 function showCartContent(){
   $total = 0;
   $cartContent = getCartContent();
-  var_dump($cartContent);
+  // var_dump($cartContent);
   echo '<h1>Winkelwagen</h1>';
   echo '<table>';
   echo '<tr>
