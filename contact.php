@@ -8,11 +8,11 @@ function showContactContent($data){
 }
 
 function showContactThanks($data){
-	echo "Beste " . SALUTATIONS[getArrayVar($data['values'], 'aanhef', 'Dhr')] . " " . getArrayVar($data['values'], 'name') . ", dankjewel voor het posten!" . "<br>";
-	echo "Emailadres: " . getArrayVar($data['values'], 'email') . "<br>";
-	echo "Telefoonnummer: " . getArrayVar($data['values'], 'phone') . "<br>";
-	echo "Communicatievoorkeur: " . getArrayVar($data['values'], 'voorkeur') . "<br>";
-	echo "Bericht: " . getArrayVar($data['values'], 'message') . "<br>";
+	echo "Beste " . SALUTATIONS[getValue($data, 'aanhef', 'Dhr')] . " " . getValue($data, 'name') . ", dankjewel voor het posten!" . "<br>";
+	echo "Emailadres: " . getValue($data, 'email') . "<br>";
+	echo "Telefoonnummer: " . getValue($data, 'phone') . "<br>";
+	echo "Communicatievoorkeur: " . getValue($data, 'voorkeur') . "<br>";
+	echo "Bericht: " . getValue($data, 'message') . "<br>";
 }
 
 function showcontactForm($data){
