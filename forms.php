@@ -15,15 +15,15 @@ function showFormField($field, $label, $type, $data, $required=true, $options=NU
       showRowStart($field, $label);
       echo '<select name="'.$field.'" id="'.$field.'">';
       foreach(SALUTATIONS as $key=>$label){
-        echo '<option value="'.$key.'">'.$label.'</option>'; 
+        echo '<option value="'.$key.'" '; if (getArrayVar($data['values'], $field)==$label) echo "selected"; echo ' >'.$label.'</option>'; 
       }
-			echo '</select>';
+			echo '</select><span class="error">* '.getArrayVar($data['errors'], $field).'</span>';
       showRowEnd();
       break;
     case 'radio':
       showRowStart($field, $label);
       foreach(COMM_PREFS as $key=>$value){
-        echo '<input type="'.$type.'" name="'.$field.'" id="'.$key.'" '; if (getArrayVar($data['values'], $field)==$key) echo "checked"; echo ' value="'.$key.'"><label for="'.$key.'">'.$value.'</label>';
+        echo '<input type="'.$type.'" name="'.$field.'" id="'.$key.'" '; if (getArrayVar($data['values'], $field)==$value) echo "checked"; echo ' value="'.$value.'"><label for="'.$key.'">'.$value.'</label>';
       }
       echo '<span class="error">* '.getArrayVar($data['errors'], $field).'</span>';
       showRowEnd();
@@ -56,3 +56,5 @@ function showFormEnd($page){
   </tr>
   </form></table>';
 }
+
+?>

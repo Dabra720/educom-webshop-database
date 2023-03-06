@@ -18,17 +18,25 @@ function showProduct($key, $value){
           <div class="shop_image">
             <img src="Images/'.$value['filename'].'" alt="'.$value['name'].'" style="width:80%;height:100%">
           </div>
+          </a>
           <div class="shop_bottom">
             <div class="shop_price">
               <h3>&#8364; '.$value['price'].'</h3>
             </div>
             <div class="shop_addcart">
-              <a href="#" ><button>Add to Cart</button></a>
+              <form action="index.php" method="post">
+              <input type="number" name="amount" value="1" style="float:left; width: 40%;">
+              <!--<a href="index.php?page=""><button>Add to Cart</button></a>-->
+              <input type="hidden" name="id" value="'.$value['id'].'">
+              <input type="hidden" name="price" value="'.$value['price'].'">
+              <input type="hidden" name="page" value="addToCart">
+              <input type="submit" value="Add to Cart">
+              </form>
             </div>
           </div>
           
         </div>
-        </a>
+        
         ';
 }
 

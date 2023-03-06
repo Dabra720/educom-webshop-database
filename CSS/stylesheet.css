@@ -94,6 +94,10 @@ input[type=text], select, [type=email], [type=password], textarea{
 .shop_product:hover{
 	background-color: blue;
 }
+th{
+	text-align: left;
+	padding-right: 15px;
+}
 footer{
 	background-color: black;
 	color: white;

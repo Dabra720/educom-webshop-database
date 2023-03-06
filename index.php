@@ -1,9 +1,8 @@
 <?php 
 session_start();
-require 'file_repository.php';
 require 'validation.php';
-require 'user_service.php';
-require 'product_service.php';
+require 'service.php';
+// require 'product_service.php';
 require 'session_manager.php';
 
 $page = getRequestedPage();
@@ -16,11 +15,11 @@ function getRequestedPage()
    $requested_type = $_SERVER['REQUEST_METHOD']; 
    if ($requested_type == 'POST') 
    { 
-       $requested_page = getPostVar('page','home'); 
+       $requested_page = getPostVar('page','home');
    } 
    else 
    { 
-       $requested_page = getUrlVar('page','home'); 
+       $requested_page = getUrlVar('page','home');
    } 
    $requested_page = test_input($requested_page);
    return $requested_page; 
@@ -80,9 +79,9 @@ function processRequest($page){
     case 'addToCart':
       $data = validateProduct();
       if($data['validForm']){
-        // $id = $data['product']['id'];
-        // $amount = $data['product']['amount'];
-        storeInCart($data['product']);
+        $id = $data['product']['id'];
+        $amount = $data['product']['amount'];
+        storeInCart($id, $amount);
       }
       $data = getProducts();
       $page = 'webshop';
@@ -212,6 +211,9 @@ function pageNotFound($data){
   echo '<h1>PAGE NOT FOUND 404</h1>';
 }
 
+function getValue($data, $key, $default=''){
+  return getArrayVar($data['values'], $key, $default);
+}
 function getArrayVar($array, $key, $default='') 
 { 
    return isset($array[$key]) ? $array[$key] : $default; 

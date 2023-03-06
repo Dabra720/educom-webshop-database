@@ -4,6 +4,7 @@
 function doLoginUser($data){
   $_SESSION['id'] = $data['values']['id'];
   $_SESSION['name'] = $data['values']['name'];
+  $_SESSION['cart'] = array();
 }
 function isUserLoggedIn(){
   if(isset($_SESSION['name'])){
@@ -23,10 +24,12 @@ function doLogoutUser(){
 }
 
 //=================== PRODUCT ========================
-function storeInCart($productid, $amount){
-  $cart = array();
+function storeInCart($productId, $amount){
+  $_SESSION['cart'][$productId] = $amount;
+}
 
-  $_SESSION['cart'] = $cart;
+function removeFromCart($productId){
+  unset($_SESSION['cart'][$productId]);
 }
 
 function getCartContent(){

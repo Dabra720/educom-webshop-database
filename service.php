@@ -1,6 +1,7 @@
 <?php
-// require 'file_repository.php';
+require 'repository.php';
 
+// ================================= USERS ==================================
 function authenticateUser($email, $password){
   $user = findUserByEmail($email);
   if(!empty($user)){
@@ -35,4 +36,20 @@ function storeUser($email, $name, $password){
   saveUser($email, $name, $password);
 }
 
+// ================================= PRODUCTS ==================================
+function getProducts(){
+  $data = selectProducts();
+
+  return $data;
+}
+
+function getProductBy($search, $value){
+  switch($search){
+    case 'id':
+      $product = findProductById($value);
+      return $product;
+  }
+  return NULL;
+
+}
 ?>
