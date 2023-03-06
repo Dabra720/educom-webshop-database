@@ -22,10 +22,12 @@ function getRequestedPage()
    { 
        $requested_page = getUrlVar('page','home'); 
    } 
+   $requested_page = test_input($requested_page);
    return $requested_page; 
 } 
 
 function processRequest($page){
+  
   switch ($page){
     case 'login':
       $data = validateLogin();
@@ -67,7 +69,6 @@ function processRequest($page){
         $data = validateChangePassword();
         $page = 'profile';
       } else {$page = 'change';}
-      // debug_to_console("Page: " . $page);
       break;
     case 'webshop':
       $data = getProducts();
@@ -75,6 +76,17 @@ function processRequest($page){
     case 'product':
       $product = getProductBy('id', getUrlVar('id'));
       $data['product'] = $product;
+      break;
+    case 'addToCart':
+      $data = validateProduct();
+      if($data['validForm']){
+        // $id = $data['product']['id'];
+        // $amount = $data['product']['amount'];
+        storeInCart($data['product']);
+      }
+      $data = getProducts();
+      $page = 'webshop';
+      break;
   }
   $data['page'] = $page;
   $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT', 'webshop'=>'WEBSHOP');
@@ -148,8 +160,12 @@ function showContent($data){
       require 'product.php';
       showProductContent($data);
       break;
+    case 'cart':
+      require 'cart.php';
+      showCartContent();
+      break;
     default:
-      pageNotFound();
+      pageNotFound($data);
   }
 }
 
@@ -191,7 +207,8 @@ function showDocumentEnd(){
   echo "</html>";
 }
 
-function pageNotFound(){
+function pageNotFound($data){
+  var_dump($data);
   echo '<h1>PAGE NOT FOUND 404</h1>';
 }
 
