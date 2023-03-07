@@ -1,5 +1,5 @@
 <?php
-var_dump($data);
+// var_dump($data);
 function showDetailContent($data){
   echo '<div class="product_detail">
     <div class="product_image">
@@ -12,11 +12,11 @@ function showDetailContent($data){
       &#8364; '.getArrayVar($data['product'], 'price').'
     </div>
     <div class="">
-      <div class="product_description" style="display:block; width:70%;">
+      <div class="product_description">
         <p>'.getArrayVar($data['product'], 'description').'</p>
         
       </div>';
-  addAction('detail', 'addToCart', 'Add to cart');
+  addAction('detail', 'addToCart', 'Add to cart', getArrayVar($data['product'], 'id'), getArrayVar($data['product'], 'name'));
   // if(isUserLoggedIn()){
   //   echo '<div class="product_add" style="display:block; width:30%;">
   //       <form action="index.php" method="post">

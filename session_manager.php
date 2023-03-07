@@ -31,7 +31,6 @@ function storeInCart($productId, $amount){
   }else{
     $_SESSION['cart'][$productId] = $amount;
   }
-  
 }
 
 function removeFromCart($productId){
