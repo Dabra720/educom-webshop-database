@@ -25,7 +25,13 @@ function doLogoutUser(){
 
 //=================== PRODUCT ========================
 function storeInCart($productId, $amount){
-  $_SESSION['cart'][$productId] = $amount;
+  // debug_to_console('Amount to store: ', $amount);
+  if(isset($_SESSION['cart'][$productId])){
+    $_SESSION['cart'][$productId] += $amount;
+  }else{
+    $_SESSION['cart'][$productId] = $amount;
+  }
+  
 }
 
 function removeFromCart($productId){
@@ -35,4 +41,11 @@ function removeFromCart($productId){
 function getCartContent(){
   return $_SESSION['cart'];
 }
+
+function getAmountFromCart($productId){
+  $amount = getArrayVar(getCartContent(),$productId);
+  // debug_to_console($amount);
+  return getArrayVar(getCartContent(),$productId);
+}
+
 ?>

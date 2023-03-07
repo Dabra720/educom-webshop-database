@@ -8,6 +8,7 @@ require 'session_manager.php';
 $page = getRequestedPage();
 $data = processRequest($page);
 // var_dump($data);
+var_dump($_SESSION);
 showResponsePage($data);
 
 function getRequestedPage() 
@@ -26,7 +27,6 @@ function getRequestedPage()
 } 
 
 function processRequest($page){
-  
   switch ($page){
     case 'login':
       $data = validateLogin();
@@ -70,22 +70,29 @@ function processRequest($page){
       } else {$page = 'change';}
       break;
     case 'webshop':
+      handleActions();
       $data = getProducts();
       break;
-    case 'product':
-      $product = getProductBy('id', getUrlVar('id'));
-      $data['product'] = $product;
+    case 'detail':
+      handleActions();
+      $data['product'] = getProductBy('id', getUrlVar('id'));
       break;
-    case 'addToCart':
-      $data = validateProduct();
-      if($data['validForm']){
-        $id = $data['product']['id'];
-        $amount = $data['product']['amount'];
-        storeInCart($id, $amount);
-      }
-      $data = getProducts();
-      $page = 'webshop';
+    case 'cart':
+      handleActions();
       break;
+    case 'home':
+      handleActions();
+      break;
+    // case 'addToCart':
+    //   $data = validateProduct();
+    //   if($data['validForm']){
+    //     $id = $data['product']['id'];
+    //     $amount = $data['product']['amount'];
+    //     storeInCart($id, $amount);
+    //   }
+    //   $data = getProducts();
+    //   $page = 'webshop';
+    //   break;
   }
   $data['page'] = $page;
   $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT', 'webshop'=>'WEBSHOP');
@@ -155,9 +162,9 @@ function showContent($data){
       require 'webshop.php';
       showWebshopContent($data);
       break;
-    case 'product':
-      require 'product.php';
-      showProductContent($data);
+    case 'detail':
+      require 'detail.php';
+      showDetailContent($data);
       break;
     case 'cart':
       require 'cart.php';

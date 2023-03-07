@@ -74,7 +74,7 @@ function updateUser($key, $value){
 // ================================== PRODUCTS =======================================
 
 function selectProducts(){
-  $data = array('validForm'=>false, 'values'=>array(), 'errors'=>array(), 'products'=>array());
+  // $data = array('validForm'=>false, 'values'=>array(), 'errors'=>array(), 'products'=>array(), 'cart'=>array());
   $conn = databaseConnection();
   $sql = "SELECT * FROM products";
 
@@ -105,6 +105,10 @@ function findProductById($id){
   } finally {
     mysqli_close($conn);
   }
+}
+
+function storeOrder($user_id, $cartContent){
+  
 }
 
 ?>
