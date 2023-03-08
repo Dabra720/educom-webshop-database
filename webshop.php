@@ -24,7 +24,7 @@ function showProduct($key, $value){
               <h3>&#8364; '.$value['price'].'</h3>
             </div>';
   if(isUserLoggedIn()){
-    addAction('webshop', 'addToCart', 'Add to Cart', $value['id'], $value['name']);
+    addAction('webshop', 'updateCart', 'Update Cart', $value['id'], $value['name']);
   }
   echo'</div>
   </div>';

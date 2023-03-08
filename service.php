@@ -65,7 +65,7 @@ function addAction($nextpage, $action, $buttonTxt, $productId = NULL, $name = NU
     echo '<form action="index.php" method="post">';
     echo '<input type="hidden" name="action" value="' . $action . '">';
     if(!empty($productId)){
-      echo '<input type="number" name="amount" value="'; echo (!empty($amount)) ? $amount : '1'; echo '" class="" style="float:left; width: 40px;">';
+      echo '<input type="number" name="amount" value="'; echo (!empty($amount)) ? $amount : '0'; echo '" min="0" class="" style="float:left; width: 40px;">';
       echo '<input type="hidden" name="id" value="' . $productId . '">';
     }
     if(!empty($name)) {
@@ -81,19 +81,31 @@ function handleActions(){
   // $data = array();
   $action = getPostVar("action");
   switch($action) {
-    case "addToCart":
-      // debug_to_console('Action='.$action);
+    // case "addToCart":
+    //   // debug_to_console('Action='.$action);
+    //   $productId = getPostVar("id");
+    //   $amount = getPostVar("amount");
+    //   if($amount > 0){
+    //     storeInCart($productId, $amount);
+    //   }
+    //   break;
+    case "updateCart":
       $productId = getPostVar("id");
       $amount = getPostVar("amount");
-      storeInCart($productId, $amount);
+      if($amount == 0){
+        removeFromCart($productId);
+      } else if($amount > 0){
+        updateCart($productId, $amount);
+      }
       break;
-    case "removeFromCart":
-      $productId = getPostVar("id");
-      removeFromCart($productId);
-      break;
+    // case "removeFromCart":
+    //   $productId = getPostVar("id");
+    //   removeFromCart($productId);
+    //   break;
     case "order":
-      $user_id = getCurrentUser('id');
-      $cartContent = getCartContent(); 
+      $user_id = getCurrentUser("id");
+      $cartContent = getCartContent();
+      if($cartContent)
       saveOrder($user_id, $cartContent);
       break;
   }
@@ -106,7 +118,7 @@ function saveOrder($userId, $cartContent){
     storeOrder($userId, $cartContent);
     emptyCart();
   }catch(Exception $e){
-    
+
   }
 
 }

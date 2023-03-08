@@ -8,7 +8,7 @@ require 'session_manager.php';
 $page = getRequestedPage();
 $data = processRequest($page);
 // var_dump($data);
-var_dump($_SESSION);
+// var_dump($_SESSION);
 showResponsePage($data);
 
 function getRequestedPage() 

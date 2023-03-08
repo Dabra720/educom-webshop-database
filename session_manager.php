@@ -26,13 +26,16 @@ function doLogoutUser(){
 //=================== PRODUCT ========================
 function storeInCart($productId, $amount){
   // debug_to_console('Amount to store: ', $amount);
+  
   if(isset($_SESSION['cart'][$productId])){
     $_SESSION['cart'][$productId] += $amount;
   }else{
     $_SESSION['cart'][$productId] = $amount;
   }
 }
-
+function updateCart($productId, $amount){
+  $_SESSION['cart'][$productId] = $amount;
+}
 function removeFromCart($productId){
   unset($_SESSION['cart'][$productId]);
 }

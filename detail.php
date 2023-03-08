@@ -17,7 +17,7 @@ function showDetailContent($data){
         
       </div>';
   if(isUserLoggedIn()){    
-    addAction('detail', 'addToCart', 'Add to cart', getArrayVar($data['product'], 'id'), getArrayVar($data['product'], 'name'));
+    addAction('detail', 'updateCart', 'Update cart', getArrayVar($data['product'], 'id'), getArrayVar($data['product'], 'name'));
   }
   echo '</div>';
 }
