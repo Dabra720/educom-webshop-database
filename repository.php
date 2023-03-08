@@ -110,19 +110,25 @@ function findProductById($id){
 function storeOrder($user_id, $cartContent){
   $conn = databaseConnection();
 
+  try{
+    $sql1 = "INSERT INTO invoice (date, user_id) VALUE(CURRENT_DATE(),'$user_id')";
+    $result = mysqli_query($conn, $sql1);
+    if(!$result){
+      throw new Exception("storeOrder failed, sql: " . $sql1 . ", error: " . mysqli_error($conn));
+    }
 
-  $sql1 = "INSERT INTO invoice (date, user_id) VALUE(CURRENT_DATE(),'$user_id')";
+    $last_id = mysqli_insert_id($conn);
+    foreach($cartContent as $key=>$value){
+      $sql2 = "INSERT INTO invoice_row(invoice_id, product_id, quantity) VALUES($last_id, $key, $value)";
+      mysqli_query($conn, $sql2);
+    }
 
-  mysqli_query($conn, $sql1);
-
-  $last_id = mysqli_insert_id($conn);
-
-  foreach($cartContent as $key=>$value){
-    $sql2 = "INSERT INTO invoice_row(invoice_id, product_id, quantity) VALUES($last_id, $key, $value)";
-    mysqli_query($conn, $sql2);
+  }finally{
+    mysqli_close($conn);
   }
 
-  mysqli_close($conn);
+
+  
 }
 
 ?>
