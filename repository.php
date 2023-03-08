@@ -126,8 +126,22 @@ function storeOrder($user_id, $cartContent){
   }finally{
     mysqli_close($conn);
   }
+}
 
+function selectTopFive(){
+  $conn = databaseConnection();
 
+  $sql = "SELECT p.id, p.name, p.price, p.filename, SUM(ir.quantity) AS quantity
+  FROM products p
+  LEFT JOIN invoice_row ir ON p.id=ir.product_id
+  LEFT JOIN invoice i ON ir.invoice_id=i.id
+  AND DATEDIFF(CURRENT_DATE(), i.date) < 7
+  GROUP BY p.id
+  ORDER BY quantity DESC
+  LIMIT 5";
+  $result['top'] = mysqli_query($conn, $sql);
+  mysqli_close($conn);
+  return $result;
   
 }
 

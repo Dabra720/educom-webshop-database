@@ -73,6 +73,9 @@ function processRequest($page){
       handleActions();
       $data = getProducts();
       break;
+    case 'topFive':
+      $data = getTopFive();
+      break;
     case 'detail':
       handleActions();
       if($_SERVER['REQUEST_METHOD'] == "GET"){
@@ -99,7 +102,7 @@ function processRequest($page){
     //   break;
   }
   $data['page'] = $page;
-  $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT', 'webshop'=>'WEBSHOP');
+  $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT', 'webshop'=>'WEBSHOP', 'topFive'=>'TOP 5');
   if(isUserLoggedIn()){
     $data['menu']['cart'] = "CART";
     $data['menu']['profile'] = "PROFILE";
@@ -165,6 +168,10 @@ function showContent($data){
     case 'webshop':
       require 'webshop.php';
       showWebshopContent($data);
+      break;
+    case 'topFive':
+      require_once 'topFive.php';
+      showTopFiveContent($data);
       break;
     case 'detail':
       require 'detail.php';

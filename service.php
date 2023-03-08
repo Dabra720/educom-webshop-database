@@ -39,7 +39,11 @@ function storeUser($email, $name, $password){
 // ================================= PRODUCTS ==================================
 function getProducts(){
   $data = selectProducts();
+  return $data;
+}
 
+function getTopFive(){
+  $data = selectTopFive();
   return $data;
 }
 
@@ -52,7 +56,7 @@ function getProductBy($search, $value){
   return NULL;
 }
 
-// Om 
+// Om het toevoegen van een knop makkelijker te maken
 function addAction($nextpage, $action, $buttonTxt, $productId = NULL, $name = NULL){
   $amount = getAmountFromCart($productId);
   // debug_to_console('Amount: ' . $amount);
@@ -72,7 +76,7 @@ function addAction($nextpage, $action, $buttonTxt, $productId = NULL, $name = NU
     echo '</form>';
   }
 }
-
+// Voor het afhandelen van de acties van de knoppen van hierboven ^^
 function handleActions(){
   // $data = array();
   $action = getPostVar("action");
@@ -102,7 +106,7 @@ function saveOrder($userId, $cartContent){
     storeOrder($userId, $cartContent);
     emptyCart();
   }catch(Exception $e){
-
+    
   }
 
 }

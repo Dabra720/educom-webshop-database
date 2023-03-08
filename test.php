@@ -79,4 +79,38 @@ echo '<span class="error">* required fields</span>
 		}
 		return $array;
 	}
+// Advanced SQL
+$sqlSELECT = 'SELECT p.id, p.name, p.price, p.filename, ir.quantity FROM products p
+LEFT JOIN invoice_row ir ON p.id=ir.product_id
+';
+
+$sqlSUM = 'SELECT SUM(quantity) FROM invoice_row WHERE product_id = 1
+';
+
+$sqlSELECTSUM = 'SELECT DISTINCT p.id, p.name, p.price, p.filename, SUM(ir.quantity) AS quantity
+FROM products p
+LEFT JOIN invoice_row ir ON p.id=ir.product_id
+GROUP BY p.id
+ORDER BY quantity DESC
+';
+
+$sqlTOP5 = 'SELECT p.id, p.name, p.price, p.filename, SUM(ir.quantity) AS quantity
+FROM products p
+LEFT JOIN invoice_row ir ON p.id=ir.product_id
+GROUP BY p.id
+ORDER BY quantity DESC
+LIMIT 5
+';
+
+$sqlCOMPLETE = 'SELECT p.id, p.name, p.price, p.filename, SUM(ir.quantity) AS quantity
+FROM products p
+LEFT JOIN invoice_row ir ON p.id=ir.product_id
+LEFT JOIN invoice i ON ir.invoice_id=i.id
+AND DATEDIFF(CURRENT_DATE(), i.date) < 7
+GROUP BY p.id
+ORDER BY quantity DESC
+LIMIT 5
+';
+
+
 ?>
