@@ -75,7 +75,11 @@ function processRequest($page){
       break;
     case 'detail':
       handleActions();
-      $data['product'] = getProductBy('id', getUrlVar('id'));
+      if($_SERVER['REQUEST_METHOD'] == "GET"){
+        $data['product'] = getProductBy('id', getUrlVar('id'));
+      } else{
+        $data['product'] = getProductBy('id', getPostVar('id'));
+      }
       break;
     case 'cart':
       handleActions();

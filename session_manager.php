@@ -36,6 +36,9 @@ function storeInCart($productId, $amount){
 function removeFromCart($productId){
   unset($_SESSION['cart'][$productId]);
 }
+function emptyCart(){
+  $_SESSION['cart'] = array();
+}
 
 function getCartContent(){
   return $_SESSION['cart'];

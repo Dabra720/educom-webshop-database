@@ -23,21 +23,11 @@ function showProduct($key, $value){
             <div class="shop_price">
               <h3>&#8364; '.$value['price'].'</h3>
             </div>';
-  addAction('webshop', 'addToCart', 'Add to Cart', $value['id'], $value['name']);
-  // if(isUserLoggedIn()){
-  //   echo '<div class="shop_addcart">
-  //             <form action="index.php" method="post">
-  //               <input type="number" name="amount" value="1" style="float:left; width: 40%;">
-  //               <input type="hidden" name="id" value="'.$value['id'].'">
-  //               <input type="hidden" name="price" value="'.$value['price'].'">
-  //               <input type="hidden" name="page" value="addToCart">
-  //               <input type="submit" value="Add to Cart">
-  //             </form>
-  //           </div>';
-  // }
-            
-    echo'</div>
-        </div>';
+  if(isUserLoggedIn()){
+    addAction('webshop', 'addToCart', 'Add to Cart', $value['id'], $value['name']);
+  }
+  echo'</div>
+  </div>';
 }
 
 ?>

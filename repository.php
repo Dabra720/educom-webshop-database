@@ -110,14 +110,15 @@ function findProductById($id){
 function storeOrder($user_id, $cartContent){
   $conn = databaseConnection();
 
-  $sql1 = "INSERT INTO 'order'(user_id) VALUES($user_id)";
+
+  $sql1 = "INSERT INTO invoice (date, user_id) VALUE(CURRENT_DATE(),'$user_id')";
 
   mysqli_query($conn, $sql1);
 
   $last_id = mysqli_insert_id($conn);
 
   foreach($cartContent as $key=>$value){
-    $sql2 = "INSERT INTO order_row(order_id, product_id, amount) VALUES($last_id, $key, $value)";
+    $sql2 = "INSERT INTO invoice_row(invoice_id, product_id, quantity) VALUES($last_id, $key, $value)";
     mysqli_query($conn, $sql2);
   }
 

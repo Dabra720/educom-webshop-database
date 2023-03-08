@@ -25,10 +25,8 @@ function showCartContent(){
   }
   echo '<tr><td></td><td></td><td></td><th>Totaal:</th></tr>';
   echo '<tr><td></td><td></td><td></td><td>&#8364; '. number_format($total, 2, ',', '.') .'</td></tr>';
-  echo '<tr><td></td><td></td><td></td><td>'; addAction('home', 'order', 'Bestel'); echo '</td></tr>';
+  echo '<tr><td></td><td></td><td></td><td>'; addAction('home', 'order', 'Afrekenen'); echo '</td></tr>';
   echo '</table>';
-  
-  
 }
 
 ?>

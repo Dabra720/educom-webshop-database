@@ -16,18 +16,9 @@ function showDetailContent($data){
         <p>'.getArrayVar($data['product'], 'description').'</p>
         
       </div>';
-  addAction('detail', 'addToCart', 'Add to cart', getArrayVar($data['product'], 'id'), getArrayVar($data['product'], 'name'));
-  // if(isUserLoggedIn()){
-  //   echo '<div class="product_add" style="display:block; width:30%;">
-  //       <form action="index.php" method="post">
-  //         <input type="number" name="amount" value="1" style="">
-  //         <input type="hidden" name="id" value="'.getArrayVar($data['product'], 'id').'">
-  //         <input type="hidden" name="price" value="'.getArrayVar($data['product'], 'price').'">
-  //         <input type="hidden" name="page" value="addToCart">
-  //         <input type="submit" value="Add to Cart">
-  //       </form>
-  //     </div>';
-  // }
+  if(isUserLoggedIn()){    
+    addAction('detail', 'addToCart', 'Add to cart', getArrayVar($data['product'], 'id'), getArrayVar($data['product'], 'name'));
+  }
   echo '</div>';
 }
 

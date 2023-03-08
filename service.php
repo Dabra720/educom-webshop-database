@@ -78,7 +78,7 @@ function handleActions(){
   $action = getPostVar("action");
   switch($action) {
     case "addToCart":
-      debug_to_console('Action='.$action);
+      // debug_to_console('Action='.$action);
       $productId = getPostVar("id");
       $amount = getPostVar("amount");
       storeInCart($productId, $amount);
@@ -89,10 +89,21 @@ function handleActions(){
       break;
     case "order":
       $user_id = getCurrentUser('id');
-      $data = getCartContent(); 
-      storeOrder($user_id, $data);
+      $cartContent = getCartContent(); 
+      saveOrder($user_id, $cartContent);
       break;
   }
   // return $data;
+}
+
+function saveOrder($userId, $cartContent){
+
+  try{
+    storeOrder($userId, $cartContent);
+    emptyCart();
+  }catch(Exception $e){
+
+  }
+
 }
 ?>
