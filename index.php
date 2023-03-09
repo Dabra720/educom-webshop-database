@@ -104,7 +104,7 @@ function processRequest($page){
   $data['page'] = $page;
   $data['menu'] = array('home' => 'HOME', 'about' => 'ABOUT', 'contact' => 'CONTACT', 'webshop'=>'WEBSHOP', 'topFive'=>'TOP 5');
   if(isUserLoggedIn()){
-    $data['menu']['cart'] = "CART";
+    $data['menu']['cart'] = "SHOPPINGCART";
     $data['menu']['profile'] = "PROFILE";
     $data['menu']['logout'] = "LOGOUT " . getCurrentUser('name');
   } else{
@@ -124,7 +124,7 @@ function showResponsePage($data){
 function showBodySection($data){
   echo '<body>';
   showHeader($data);
-  echo '<div class="content">';
+  echo '<div class="container-sm pb-4 border" style="max-width: 800px;">';
   showContent($data);
   echo '</div>';
   showFooter();
@@ -187,45 +187,55 @@ function showContent($data){
 }
 
 function showDocumentStart(){
-  echo '<!DOCTYPE html>
-        <html>';
+  echo '<!DOCTYPE html>';
+  echo '<html lang="NL">';
 }
 
 function showHeadSection($data){
   echo '<head>';
 	echo '<meta charset="UTF-8">';
-	echo'<title>'. $data['page'] .'</title>';
-  echo '<link rel="stylesheet" href="CSS/stylesheet.css">';
-  // echo '<!-- Latest compiled and minified CSS -->
-  // <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">';
-  // echo '<!-- jQuery library -->
-  // <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>';
-  // echo '<!-- Popper JS -->
-  // <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>';
-  // echo '<!-- Latest compiled JavaScript -->
-  // <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>';
+  echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
+	echo '<title>'. $data['page'] .'</title>';
+  // echo '<link rel="stylesheet" href="CSS/stylesheet.css">';
+  echo '<!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">';
+  echo '<!-- jQuery library -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>';
+  echo '<!-- Popper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>';
+  echo '<!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>';
   echo '</head>';
 }
 
 function showHeader($data){
-  echo '
-  <header>
-		<ul class="navbar">';
+  echo '<header>';
+  echo '<nav class="navbar navbar-expand-md bg-primary navbar-dark">';
+  echo '<a class="navbar-brand" href="index.php">Navbar</a>';
+  echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">';
+  echo '<span class="navbar-toggler-icon"></span>';
+  echo '</button>';
+  echo '<div class="collapse navbar-collapse" id="collapsibleNavbar">';
+	echo '<ul class="navbar-nav">';
   foreach($data['menu'] as $link => $label){
     showMenuItem($link, $label);
   }
-	echo '</ul>
-	</header>';
+	echo '</ul>';
+  echo '</div>';
+  echo '</nav>';
+	echo '</header>';
 }
 
 function showMenuItem($link, $label){
-  echo "<li class=''><a href='index.php?page=$link'>$label</a></li>";
+  echo "<li class='nav-item'>";
+  echo "<a class='nav-link' href='index.php?page=$link'>$label</a>";
+  echo "</li>";
 }
 
 function showFooter(){
-  echo '<footer>
-  &#169; 2023 Daan Braas
-  </footer>';
+  echo '<footer = class="container-fluid bg-dark fixed-bottom">';
+  echo '<p class="text-white my-0" style="text-align:right;">&#169; 2023 Daan Braas</p>';
+  echo '</footer>';
 }
 
 function showDocumentEnd(){

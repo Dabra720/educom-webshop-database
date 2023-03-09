@@ -2,10 +2,10 @@
 
 function showFormStart($hasRequiredFields){
   if($hasRequiredFields){
-    echo '<span class="error">* required fields</span>';
+    echo "<span class='text-danger'>* required fields</span>";
   }
-	echo '<form action="index.php" method="POST">
-	<table>';
+	echo "<form action='index.php' method='POST'>";
+  echo "<div class='form-group'>";
 }
 
 function showFormField($field, $label, $type, $data, $required=true, $options=NULL){
@@ -13,48 +13,56 @@ function showFormField($field, $label, $type, $data, $required=true, $options=NU
   switch($type){
     case 'select':
       showRowStart($field, $label);
-      echo '<select name="'.$field.'" id="'.$field.'">';
+      echo "<select name='$field' id='$field' class='form-control'>";
       foreach(SALUTATIONS as $key=>$label){
-        echo '<option value="'.$key.'" '; if (getArrayVar($data['values'], $field)==$label) echo "selected"; echo ' >'.$label.'</option>'; 
+        echo "<option value='$key' "; if (getArrayVar($data['values'], $field)==$label) echo "selected"; echo " >$label</option>"; 
       }
-			echo '</select><span class="error">* '.getArrayVar($data['errors'], $field).'</span>';
+			echo '</select><span class="text-danger">* '.getArrayVar($data['errors'], $field).'</span>';
       showRowEnd();
       break;
     case 'radio':
       showRowStart($field, $label);
+      echo "<div class='form-check form-check-inline'>";
       foreach(COMM_PREFS as $key=>$value){
-        echo '<input type="'.$type.'" name="'.$field.'" id="'.$key.'" '; if (getArrayVar($data['values'], $field)==$value) echo "checked"; echo ' value="'.$value.'"><label for="'.$key.'">'.$value.'</label>';
+        echo "<input type='$type' name='$field' id='$key' "; if (getArrayVar($data['values'], $field)==$value) echo "checked"; echo " value='$value' class='form-check-input'><label for='$key' class='form-check-label mr-sm-2'>$value</label>";
       }
-      echo '<span class="error">* '.getArrayVar($data['errors'], $field).'</span>';
+      echo "<span class='text-danger'>* ".getArrayVar($data['errors'], $field)."</span>";
+      echo "</div>";
       showRowEnd();
       break;
     case 'textarea':
       showRowStart($field, $label);
-      echo '<'.$type.' name="'.$field.'">'.getArrayVar($data['values'], $field).'</'.$type.'><span class="error">* '.getArrayVar($data['errors'], $field).'</span>';
+      echo "<$type name='$field' class='form-control'>".getArrayVar($data['values'], $field)."</$type><span class='text-danger'>* ".getArrayVar($data['errors'], $field)."</span>";
       showRowEnd();
       break;
     default:
       showRowStart($field, $label);
-      echo '<input type="'.$type.'" name="'.$field.'" id="'.$field.'" value="'.getArrayVar($data['values'], $field).'"><span class="error">* '.getArrayVar($data['errors'], $field).'</span>';
+      echo "<input type='$type' name='$field' id='$field' value='".getArrayVar($data['values'], $field)."' class='form-control'><span class='text-danger'>* ".getArrayVar($data['errors'], $field)."</span>";
       showRowEnd();
       break;
   }
 }
 function showRowStart($field, $label){
-  echo '<tr>
-			<td><label for="'.$field.'">'.$label.': </label></td>
-			<td>';
+  echo "<div class='row'>";
+  echo "<div class='col'>";
+  echo "<label for='$label'>$label: </label>";
+  echo "</div>";
+  echo "<div class='col'>";
 }
 function showRowEnd(){
-  echo '</td>
-  </tr>';
+  echo "</div>";
+  echo "</div>";
 }
 function showFormEnd($page){
-  echo '<tr>
-  <td><input type="submit" value="Verzend"></td>
-  <td><input type="hidden" name="page" value="'.$page.'"></td>
-  </tr>
-  </form></table>';
+  echo "<div class='row'>";
+  echo "<div class='col'>";
+  echo "<input type='submit' value='Verzend'>";
+  echo "<input type='hidden' name='page' value='$page'>";
+  echo "</div>";
+  echo "</div>";
+  echo "</div>";
+  echo "</form>";
+
 }
 
 ?>

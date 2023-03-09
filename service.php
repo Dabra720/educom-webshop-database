@@ -62,33 +62,26 @@ function addAction($nextpage, $action, $buttonTxt, $productId = NULL, $name = NU
   // debug_to_console('Amount: ' . $amount);
   // debug_to_console('Id: ' . $productId);
   if (isUserLoggedIn()){
-    echo '<form action="index.php" method="post">';
-    echo '<input type="hidden" name="action" value="' . $action . '">';
+    echo "<form class='form-inline' action='index.php' method='post'>";
+    echo "<div class='form-group'>";
+    echo "<input type='hidden' name='action' value='$action'>";
     if(!empty($productId)){
-      echo '<input type="number" name="amount" value="'; echo (!empty($amount)) ? $amount : '0'; echo '" min="0" class="" style="float:left; width: 40px;">';
-      echo '<input type="hidden" name="id" value="' . $productId . '">';
+      echo "<input type='number' name='amount' class='form-control' value='"; echo (!empty($amount)) ? $amount : '0'; echo "' min='0' style='width: 70px;'>";
+      echo "<input type='hidden' name='id' value='$productId'>";
     }
     if(!empty($name)) {
-      echo '<input type="hidden" name="name" value="' . $name . '">';
+      echo "<input type='hidden' name='name' value='$name'>";
     }
-    echo '<input type="hidden" name="page" value="' . $nextpage . '">';
-    echo '<button>' . $buttonTxt . '</button>';
-    echo '</form>';
+    echo "<input type='hidden' name='page' value='$nextpage'>";
+    echo "<button class='btn btn-light'>$buttonTxt</button>";
+    echo "</div>";
+    echo "</form>";
   }
 }
 // Voor het afhandelen van de acties van de knoppen van hierboven ^^
 function handleActions(){
-  // $data = array();
   $action = getPostVar("action");
   switch($action) {
-    // case "addToCart":
-    //   // debug_to_console('Action='.$action);
-    //   $productId = getPostVar("id");
-    //   $amount = getPostVar("amount");
-    //   if($amount > 0){
-    //     storeInCart($productId, $amount);
-    //   }
-    //   break;
     case "updateCart":
       $productId = getPostVar("id");
       $amount = getPostVar("amount");
@@ -98,10 +91,6 @@ function handleActions(){
         updateCart($productId, $amount);
       }
       break;
-    // case "removeFromCart":
-    //   $productId = getPostVar("id");
-    //   removeFromCart($productId);
-    //   break;
     case "order":
       $user_id = getCurrentUser("id");
       $cartContent = getCartContent();
@@ -109,7 +98,6 @@ function handleActions(){
       saveOrder($user_id, $cartContent);
       break;
   }
-  // return $data;
 }
 
 function saveOrder($userId, $cartContent){

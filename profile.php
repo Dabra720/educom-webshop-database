@@ -24,7 +24,7 @@ function showProfileContent($data){
       
     </tr>
     <tr>
-      <td><a href="index.php?page=change" class="submit"><button>Wijzig wachtwoord</button></a></td>
+      <td><a href="index.php?page=change" class="submit"><button class="btn btn-secondary">Wijzig wachtwoord</button></a></td>
       <td><input type="hidden" name="page" value="change"></td>
     </tr>
   </table>
